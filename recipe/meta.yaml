@@ -15,9 +15,11 @@ build:
 
 requirements:
   build:
-    - toolchain
-    - python
+    - {{ compiler('c') }}
+  host:
     - setuptools
+    - python
+    - toolz >=0.8.0
   run:
     - python
     - toolz >=0.8.0
