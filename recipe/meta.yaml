@@ -37,7 +37,15 @@ test:
 about:
   home: https://github.com/pytoolz/cytoolz
   license: BSD 3-Clause
+  license_file: LICENSE.txt
   summary: Cython implementation of Toolz. High performance functional utilities.
+  description: |
+    CyToolz is the Cython implementation of the toolz package, which provides
+    high performance utility functions for iterables, functions, and
+    dictionaries.
+  doc_url: https://pypi.python.org/pypi/cytoolz
+  doc_source_url: https://github.com/pytoolz/cytoolz/blob/master/README.rst
+  dev_url: https://github.com/pytoolz/cytoolz
 
 extra:
   recipe-maintainers:
