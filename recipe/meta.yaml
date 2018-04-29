@@ -26,7 +26,7 @@ requirements:
 test:
   requires:
     - nose
-    - toolz 0.8.2
+    - toolz >=0.8.2
   imports:
     - cytoolz
     - cytoolz.curried
