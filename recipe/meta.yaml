@@ -1,15 +1,17 @@
-{% set version = "0.11.0" %}
+{% set name = "cytoolz" %}
+{% set version = "0.12.0" %}
 
 package:
-  name: cytoolz
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/c/cytoolz/cytoolz-{{ version }}.tar.gz
-  sha256: c64f3590c3eb40e1548f0d3c6b2ccde70493d0b8dc6cc7f9f3fec0bb3dcd4222
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/cytoolz-{{ version }}.tar.gz
+  sha256: c105b05f85e03fbcd60244375968e62e44fe798c15a3531c922d531018d22412
 
 build:
   number: 0
+  skip: True  # [py<35]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv --global-option=--with-cython
 
 requirements:
@@ -19,24 +21,31 @@ requirements:
     - python
     - cython
     - pip
+    - setuptools
+    - wheel
   run:
     - python
+    # Require toolz >=0.10.0, see https://github.com/conda-forge/cytoolz-feedstock/commit/81ab3dd10a4f60b81cf5dd91165d4faf55f3a73a
     - toolz >=0.10.0
 
 test:
-  requires:
-    - nose
-    - toolz 0.10.0
   imports:
     - cytoolz
     - cytoolz.curried
+  requires:
+    - pip
+    - pytest
+    - toolz
   commands:
-    - nosetests --with-doctest cytoolz
+    - pip check
+    - pytest -v --doctest-modules --pyargs cytoolz
 
 about:
   home: https://github.com/pytoolz/cytoolz
   license: BSD-3-Clause
+  lisense_family: BSD
   license_file: LICENSE.txt
+  license_url: https://github.com/pytoolz/cytoolz/blob/master/LICENSE.txt
   summary: Cython implementation of Toolz. High performance functional utilities
   description: |
     CyToolz is the Cython implementation of the toolz package, which provides
