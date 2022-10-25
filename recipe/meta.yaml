@@ -50,7 +50,7 @@ test:
 about:
   home: https://github.com/pytoolz/cytoolz
   license: BSD-3-Clause
-  lisense_family: BSD
+  license_family: BSD
   license_file: LICENSE.txt
   license_url: https://github.com/pytoolz/cytoolz/blob/master/LICENSE.txt
   summary: Cython implementation of Toolz. High performance functional utilities
