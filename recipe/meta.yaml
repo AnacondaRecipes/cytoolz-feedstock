@@ -33,7 +33,8 @@ test:
     - cytoolz
     - cytoolz.curried
   requires:
-    # To run the 'cyntonize' command
+    # Require gcc and cython to run the 'cyntonize' command
+    - {{ compiler('c') }}
     - cython
     - pip
     - pytest
