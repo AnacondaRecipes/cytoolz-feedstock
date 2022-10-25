@@ -58,7 +58,7 @@ about:
     CyToolz is the Cython implementation of the toolz package, which provides
     high performance utility functions for iterables, functions, and
     dictionaries.
-  doc_url: https://pypi.python.org/pypi/cytoolz
+  doc_url: https://pypi.org/project/cytoolz/
   doc_source_url: https://github.com/pytoolz/cytoolz/blob/master/README.rst
   dev_url: https://github.com/pytoolz/cytoolz
 
