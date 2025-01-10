@@ -25,8 +25,7 @@ requirements:
     - wheel
   run:
     - python
-    # Require toolz >=0.10.0, see https://github.com/conda-forge/cytoolz-feedstock/commit/81ab3dd10a4f60b81cf5dd91165d4faf55f3a73a
-    - toolz >=0.10.0
+    - toolz >=0.8.0
 
 test:
   imports:
