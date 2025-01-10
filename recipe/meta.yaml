@@ -1,5 +1,5 @@
 {% set name = "cytoolz" %}
-{% set version = "0.12.2" %}
+{% set version = "1.0.1" %}
 
 package:
   name: {{ name|lower }}
