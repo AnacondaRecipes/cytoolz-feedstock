@@ -1,31 +1,34 @@
 {% set name = "cytoolz" %}
-{% set version = "1.0.1" %}
+{% set version = "1.1.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/cytoolz-{{ version }}.tar.gz
-  sha256: 89cc3161b89e1bb3ed7636f74ed2e55984fd35516904fc878cae216e42b2c7d6
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 13a7bf254c3c0d28b12e2290b82aed0f0977a4c2a2bf84854fcdc7796a29f3b0
 
 build:
   number: 0
-  skip: True  # [py<38]
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir --no-build-isolation -vv --global-option=--with-cython
+  skip: true  # [py<39]
+  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir --no-build-isolation -vv --config-settings="--global-option=--with-cython"
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
   host:
     - python
-    - cython
+    - cython >=0.29
     - pip
-    - setuptools
-    - wheel
+    - setuptools >=77
+    - setuptools-git-versioning >=2.0
   run:
     - python
     - toolz >=0.8.0
+  run_constrained:
+    - cython >=0.29
 
 test:
   imports:
@@ -43,7 +46,7 @@ test:
     - pytest -v --doctest-modules --pyargs cytoolz
     # Make sure we can cimport cytoolz
     - echo 'cimport cytoolz ; from cytoolz.functoolz cimport memoize' > try_cimport_cytoolz.pyx  # [not win]
-    - cythonize -i try_cimport_cytoolz.pyx    # [not win]
+    - cythonize -i try_cimport_cytoolz.pyx  # [not win]
     - python -c 'import try_cimport_cytoolz'  # [not win]
 
 about:
