@@ -37,17 +37,19 @@ test:
   requires:
     # Require gcc and cython to run the 'cyntonize' command
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - cython
     - pip
     - pytest
-    - toolz
+    # cythonize requires distutils, which setuptools provides
+    - setuptools
   commands:
     - pip check
-    - pytest -v --doctest-modules --pyargs cytoolz
     # Make sure we can cimport cytoolz
     - echo 'cimport cytoolz ; from cytoolz.functoolz cimport memoize' > try_cimport_cytoolz.pyx  # [not win]
     - cythonize -i try_cimport_cytoolz.pyx  # [not win]
     - python -c 'import try_cimport_cytoolz'  # [not win]
+    - pytest -vv --pyargs cytoolz
 
 about:
   home: https://github.com/pytoolz/cytoolz
