@@ -10,7 +10,7 @@ source:
   sha256: 13a7bf254c3c0d28b12e2290b82aed0f0977a4c2a2bf84854fcdc7796a29f3b0
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir --no-build-isolation -vv --config-settings="--global-option=--with-cython"
 
@@ -37,17 +37,19 @@ test:
   requires:
     # Require gcc and cython to run the 'cyntonize' command
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - cython
     - pip
     - pytest
-    - toolz
+    # cythonize requires distutils, which setuptools provides
+    - setuptools
   commands:
     - pip check
-    - pytest -v --doctest-modules --pyargs cytoolz
     # Make sure we can cimport cytoolz
     - echo 'cimport cytoolz ; from cytoolz.functoolz cimport memoize' > try_cimport_cytoolz.pyx  # [not win]
     - cythonize -i try_cimport_cytoolz.pyx  # [not win]
     - python -c 'import try_cimport_cytoolz'  # [not win]
+    - pytest -vv --pyargs cytoolz
 
 about:
   home: https://github.com/pytoolz/cytoolz
@@ -59,7 +61,7 @@ about:
     CyToolz is the Cython implementation of the toolz package, which provides
     high performance utility functions for iterables, functions, and
     dictionaries.
-  doc_url: https://pypi.org/project/cytoolz/
+  doc_url: https://toolz.readthedocs.io
   dev_url: https://github.com/pytoolz/cytoolz
 
 extra:
